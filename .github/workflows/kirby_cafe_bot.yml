@@ -1,0 +1,33 @@
+name: Kirby Cafe Bot
+
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.7
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          pip install selenium
+          pip install beautifulsoup4
+          pip install -U urllib3 requests
+
+      - name: Install ubuntu package
+        run: |
+          sudo apt-get install fonts-unfonts-core
+          sudo apt-get install fonts-unfonts-extra
+          wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add        
+          sudo apt-get install google-chrome-stable    
+          wget https://chromedriver.storage.googleapis.com/2.40/chromedriver_linux64.zip
+          unzip ./chromedriver_linux64.zip
+
+      - name: Run
+        run: |
+          python ./main.py

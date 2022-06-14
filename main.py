@@ -9,5 +9,7 @@ def normal_process():
     analysis(html)
     
 if __name__ == "__main__":
+    print("start")
     #normal_process()
     test_process()
+    print("end")
