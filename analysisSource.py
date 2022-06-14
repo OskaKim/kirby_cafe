@@ -14,8 +14,7 @@ def readFile():
 def analysis(html):
     html = BeautifulSoup(html, 'html.parser').prettify()
     saveAsFile(html)
-    number = html.find("span", {"class":"reserve-step-number"})
-    print(number.string)
+    print(html)
 
 def analysisInLocalFile():
     html = readFile()
