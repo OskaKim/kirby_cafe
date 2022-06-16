@@ -8,7 +8,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Python 3.7
+      - name: Set up Python 3.10
         uses: actions/setup-python@v1
         with:
           python-version: ${{ matrix.python-version }}
@@ -30,4 +30,5 @@ jobs:
 
       - name: Run
         run: |
+          export PYTHONIOENCODING=utf-8
           python ./main.py
