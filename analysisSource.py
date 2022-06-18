@@ -21,7 +21,7 @@ def analysis(html):
 
         for i in range(len(reservationInfos)):
             reservationStr = to_str(reservationInfos[i].text)
-            if reservationStr == 'o' or (i == 1 and dayIndex == 2) or (i == 8 and dayIndex == 10):
+            if reservationStr == 'o':
                 timeStr = getTimeStrFromTimeInfo(reservationOfTimeInfoGroup[i])
                 resultGroup.append(dayStr + timeStr)
 
