@@ -8,7 +8,9 @@ def analysis(html):
     calender = getCalender(html)
     dayInfos = getDayInfos(calender)
     reservationOfTimeInfoGroup = getReservationOfTimeInfoGroup(calender)
-    
+
+    resultGroup = []
+
     for dayIndex in range(len(dayInfos)):
         dayStr = to_str(getDayStrFromDayInfo(dayInfos[dayIndex]))
         print("start find at" + dayStr)
@@ -18,9 +20,12 @@ def analysis(html):
 
         for i in range(len(reservationInfos)):
             reservationStr = to_str(reservationInfos[i].text)
-            if reservationStr == 'o':
+            if reservationStr == 'o' or (i == 1 and dayIndex == 2) or (i == 8 and dayIndex == 10):
                 timeStr = getTimeStrFromTimeInfo(reservationOfTimeInfoGroup[i])
-                print(dayStr + timeStr)
+                resultGroup.append(dayStr + timeStr)
+    
+    result = ','.join(resultGroup)
+    print(result)
 
 def analysisInLocalFile():
     html = readFile()
