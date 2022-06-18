@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from analysisSource import analysis, analysisInLocalFile, saveAsFile
+from analysisSource import analysis, analysisInLocalFile
+from html_file_io import saveAsFile
 from webDriver import getReservationPageSource
 
 def test_process():
@@ -12,6 +13,5 @@ def normal_process():
     analysis(html)
     
 if __name__ == "__main__": 
-
     normal_process()
     #test_process()
