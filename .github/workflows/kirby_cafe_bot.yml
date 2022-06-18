@@ -29,16 +29,8 @@ jobs:
           unzip ./chromedriver_linux64.zip
 
       - name: Run
+        env:
+          LINE_ACCESS_TOKEN: ${{ secrets.LINE_ACCESS_TOKEN }}
         run: |
           export PYTHONIOENCODING=utf-8
-          python ./main.py
-        id: step_analysis
-
-      - name: log
-        run: echo "${{ steps.step_analysis.outputs.reservation_analysis_result }}"
-
-      - uses: snow-actions/line-notify@v1.0.0
-        with:
-          access_token: ${{ secrets.LINE_ACCESS_TOKEN }}
-          message: |
-            "${{ steps.step_analysis.outputs.reservation_analysis_result }}"
+          python ./line_notify.py
