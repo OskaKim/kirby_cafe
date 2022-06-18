@@ -13,5 +13,5 @@ def normal_process():
     analysis(html)
     
 if __name__ == "__main__": 
-    normal_process()
-    #test_process()
+    #normal_process()
+    test_process()
