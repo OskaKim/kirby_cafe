@@ -16,5 +16,3 @@ def line_notify(message):
     )
 
     print(response.text)
-
-line_notify("test from python")

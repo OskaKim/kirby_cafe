@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 from format_helper import to_str
 from github_actions_output_helper import set_output
 from html_file_io import readFile
+from line_notify import line_notify
 
 def analysis(html):
     calender = getCalender(html)
@@ -27,9 +28,9 @@ def analysis(html):
 
     if resultGroup:
         result = to_str(','.join(resultGroup))
-        set_output("reservation_analysis_result",to_str(result + "...が空いてるぽよ！"))
+        line_notify(to_str(result + "...が空いてるぽよ！"))
     else:
-        set_output("reservation_analysis_result",to_str("今は空いてる時間がない見たいぽよ..."))
+        line_notify(to_str("今は空いてる時間がない見たいぽよ..."))
 
 def analysisInLocalFile():
     html = readFile()
