@@ -24,9 +24,12 @@ def analysis(html):
             if reservationStr == 'o' or (i == 1 and dayIndex == 2) or (i == 8 and dayIndex == 10):
                 timeStr = getTimeStrFromTimeInfo(reservationOfTimeInfoGroup[i])
                 resultGroup.append(dayStr + timeStr)
-    
-    result = to_str(','.join(resultGroup))
-    set_output("reservation_analysis_result",result)
+
+    if resultGroup:
+        result = to_str(','.join(resultGroup))
+        set_output("reservation_analysis_result",to_str(result + "...が空いてるぽよ！"))
+    else:
+        set_output("reservation_analysis_result",to_str("今は空いてる時間がない見たいぽよ..."))
 
 def analysisInLocalFile():
     html = readFile()
