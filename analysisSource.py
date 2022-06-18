@@ -2,6 +2,7 @@
 
 from bs4 import BeautifulSoup
 from format_helper import to_str
+from github_actions_output_helper import set_output
 from html_file_io import readFile
 
 def analysis(html):
@@ -24,8 +25,8 @@ def analysis(html):
                 timeStr = getTimeStrFromTimeInfo(reservationOfTimeInfoGroup[i])
                 resultGroup.append(dayStr + timeStr)
     
-    result = ','.join(resultGroup)
-    print(result)
+    result = to_str(','.join(resultGroup))
+    set_output("reservation_analysis_result",result)
 
 def analysisInLocalFile():
     html = readFile()

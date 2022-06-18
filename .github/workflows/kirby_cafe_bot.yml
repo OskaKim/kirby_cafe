@@ -32,9 +32,13 @@ jobs:
         run: |
           export PYTHONIOENCODING=utf-8
           python ./main.py
+        id: step_analysis
 
-      - uses: snow-actions/line-notify@v1.0.0
-        with:
-          access_token: ${{ secrets.LINE_ACCESS_TOKEN }}
-          message: |
-            ああー日本語テスト
+      - name: log
+        run: echo "${{ steps.step_analysis.outputs.reservation_analysis_result }}"
+
+      # - uses: snow-actions/line-notify@v1.0.0
+      #   with:
+      #     access_token: ${{ secrets.LINE_ACCESS_TOKEN }}
+      #     message: |
+      #       ああー日本語テスト
