@@ -1,11 +1,26 @@
+# -*- coding: utf-8 -*-
+
 from bs4 import BeautifulSoup
 from format_helper import to_str
 from html_file_io import readFile
 
 def analysis(html):
     calender = getCalender(html)
-    getDayInfos(calender)
-    getTimeInfos(calender)
+    dayInfos = getDayInfos(calender)
+    reservationOfTimeInfoGroup = getReservationOfTimeInfoGroup(calender)
+    
+    for dayIndex in range(len(dayInfos)):
+        dayStr = to_str(getDayStrFromDayInfo(dayInfos[dayIndex]))
+        print("start find at" + dayStr)
+
+        reservationOfTimeInfoOfDay = reservationOfTimeInfoGroup[dayIndex]
+        reservationInfos = reservationOfTimeInfoOfDay.find_all("td")
+
+        for i in range(len(reservationInfos)):
+            reservationStr = to_str(reservationInfos[i].text)
+            if reservationStr == 'o':
+                timeStr = getTimeStrFromTimeInfo(reservationOfTimeInfoGroup[i])
+                print(dayStr + timeStr)
 
 def analysisInLocalFile():
     html = readFile()
@@ -19,14 +34,15 @@ def getDayInfos(calender):
     thead = calender.find("thead").tr
     dayInfos = thead.find_all("th")
     dayInfos.pop(0)
+    return dayInfos
 
-    for dayInfo in dayInfos:
-        dayInfoTexts = dayInfo.text.replace(" ","").split("\n")
-        print(to_str(dayInfoTexts[0]))
-
-def getTimeInfos(calender):
+def getReservationOfTimeInfoGroup(calender):
     tbody = calender.find("tbody")
-    timeInfos = tbody.find_all("tr")
+    return tbody.find_all("tr")
 
-    for timeInfo in timeInfos:
-        print(to_str(timeInfo.th.text))
+def getDayStrFromDayInfo(dayInfo):
+    dayInfoTexts = dayInfo.text.replace(" ","").split("\n")
+    return to_str(dayInfoTexts[0])
+
+def getTimeStrFromTimeInfo(timeInfo):
+    return to_str(timeInfo.th.text)
