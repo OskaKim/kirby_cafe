@@ -1,7 +1,7 @@
 import time
 from selenium import webdriver
 
-def getReservationPageSource():
+def getReservationPageSources():
     options = webdriver.ChromeOptions()
     options.add_argument('headless')
     options.add_argument('window-size=1920x1080')
@@ -13,19 +13,31 @@ def getReservationPageSource():
 
     time.sleep(3)
 
-    start_button = driver.find_element_by_xpath('//*[@id="app"]/div[1]/div/div/div[2]/button/span')
-    start_button.click()
+    button = driver.find_element_by_xpath('//*[@id="app"]/div[1]/div/div/div[2]/button/span')
+    button.click()
 
     time.sleep(3)
 
-    start_button = driver.find_element_by_xpath('//*[@id="app"]/div[2]/div[2]/div/div[1]/div/div[2]/div/div[1]/div[1]')
-    start_button.click()
+    button = driver.find_element_by_xpath('//*[@id="app"]/div[2]/div[2]/div/div[1]/div/div[2]/div/div[1]/div[1]')
+    button.click()
 
     time.sleep(3)
 
-    start_button = driver.find_element_by_xpath('//*[@id="list-35"]/div[2]')
-    start_button.click()
+    button = driver.find_element_by_xpath('//*[@id="list-35"]/div[2]')
+    button.click()
+    
+    time.sleep(3)
+    
+    page_sources = []
+    this_month_page_source = driver.page_source
+    page_sources.append(this_month_page_source)
+
+    button = driver.find_element_by_xpath('//*[@id="step2"]/div[2]/div[1]/button[2]')
+    button.click()
     
     time.sleep(3)
 
-    return driver.page_source
+    next_month_page_source = driver.page_source
+    page_sources.append(next_month_page_source)
+
+    return page_sources

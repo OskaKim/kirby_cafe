@@ -2,16 +2,16 @@
 
 from bs4 import BeautifulSoup
 from format_helper import to_str
-from github_actions_output_helper import set_output
-from html_file_io import readFile
-from line_notify import line_notify
 
-def analysis(html):
+def get_available_schedule_for_reservation(html):
     calender = getCalender(html)
+    monthStr = getMonthStr(html)
     dayInfos = getDayInfos(calender)
     reservationOfTimeInfoGroup = getReservationOfTimeInfoGroup(calender)
 
     resultGroup = []
+
+    print(monthStr)
 
     for dayIndex in range(len(dayInfos)):
         dayStr = to_str(getDayStrFromDayInfo(dayInfos[dayIndex]))
@@ -24,21 +24,19 @@ def analysis(html):
             reservationStr = to_str(reservationInfos[i].text)
             if reservationStr == 'o':
                 timeStr = getTimeStrFromTimeInfo(reservationOfTimeInfoGroup[i])
-                resultGroup.append(dayStr + timeStr)
-
-    if resultGroup:
-        result = to_str(','.join(resultGroup))
-        line_notify(to_str(result + "...が空いてるぽよ！"))
-    else:
-        line_notify(to_str("今は空いてる時間がない見たいぽよ..."))
-
-def analysisInLocalFile():
-    html = readFile()
-    analysis(html)
+                result = monthStr + dayStr + timeStr
+                resultGroup.append(result)
+                print(result)
+    
+    return resultGroup
 
 def getCalender(html):
     soup = BeautifulSoup(html, 'html.parser')
     return soup.find("div", {'id':'calendar-scroller'})
+
+def getMonthStr(html):
+    soup = BeautifulSoup(html, 'html.parser')
+    return to_str(soup.find("span", {'class':'body-1'}).text)
 
 def getDayInfos(calender):
     thead = calender.find("thead").tr

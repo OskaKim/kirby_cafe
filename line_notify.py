@@ -17,5 +17,3 @@ def line_notify(message):
         #"imageFullsize": "https://raw.githubusercontent.com/OskaKim/kirby_cafe/main/kirby.jpg",
     }   
     )
-
-    print(response.text)
