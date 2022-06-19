@@ -1,6 +1,8 @@
-name: Kirby Cafe Bot
+name: Kirby Cafe Reservation Status Check Bot
 
-on: workflow_dispatch
+on:
+  schedule:
+    - cron: "0 3,9,13 * 6-7 *"
 
 jobs:
   build:
