@@ -14,6 +14,6 @@ if __name__ == "__main__":
         
     if results:
         result = to_str('\n'.join(results))
-        line_notify(to_str("\n" + result + "\n...が空いてるぽよ！"))
+        line_notify(to_str("\n" + result + "\n...が空いてるぽよ！\nhttps://kirbycafe-reserve.com/guest/tokyo/reserve/"))
     else:
         line_notify(to_str("今は空いてる時間がない見たいぽよ..."))
