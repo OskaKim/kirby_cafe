@@ -15,15 +15,15 @@ def get_available_schedule_for_reservation(html):
 
     for dayIndex in range(len(dayInfos)):
         dayStr = to_str(getDayStrFromDayInfo(dayInfos[dayIndex]))
-        print("start find at" + dayStr)
+        print(dayStr)
 
-        reservationOfTimeInfoOfDay = reservationOfTimeInfoGroup[dayIndex]
-        reservationInfos = reservationOfTimeInfoOfDay.find_all("td")
+        for reservationOfTime in reservationOfTimeInfoGroup:
+            timeStr = getTimeStrFromTimeInfo(reservationOfTime)
+            reservationInfos = reservationOfTime.find_all("td")
+            reservationStr = to_str(reservationInfos[dayIndex].text)
+            print(timeStr + reservationStr)
 
-        for i in range(len(reservationInfos)):
-            reservationStr = to_str(reservationInfos[i].text)
-            if reservationStr == 'o':
-                timeStr = getTimeStrFromTimeInfo(reservationOfTimeInfoGroup[i])
+            if reservationStr == '○':
                 result = monthStr + dayStr + timeStr
                 resultGroup.append(result)
                 print(result)
