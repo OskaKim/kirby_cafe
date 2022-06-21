@@ -11,9 +11,14 @@ if __name__ == "__main__":
     results = []
     for pageSource in pageSources:
         results.extend(get_available_schedule_for_reservation(pageSource))
-        
+
+    print(results)
+
     if results:
-        result = to_str('\n'.join(results))
-        line_notify(to_str("\n" + result + "\n...が空いてるぽよ！\nhttps://kirbycafe-reserve.com/guest/tokyo/reserve/"))
+        if len(results) > 10:
+            line_notify(to_str("\nすごくたくさん空いてるぽよ!\nhttps://kirbycafe-reserve.com/guest/tokyo/reserve/"))
+        else:
+            result = to_str('\n'.join(results))
+            line_notify(to_str("\n" + result + "\n...が空いてるぽよ!\nhttps://kirbycafe-reserve.com/guest/tokyo/reserve/"))
     else:
         line_notify(to_str("今は空いてる時間がない見たいぽよ..."))
