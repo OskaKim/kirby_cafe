@@ -8,6 +8,7 @@ def get_available_schedule_for_reservation(html):
     monthStr = getMonthStr(html)
     dayInfos = getDayInfos(calender)
     reservationOfTimeInfoGroup = getReservationOfTimeInfoGroup(calender)
+    print(reservationOfTimeInfoGroup)
 
     resultGroup = []
 
