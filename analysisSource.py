@@ -12,6 +12,7 @@ def get_available_schedule_for_reservation(html):
     resultGroup = []
 
     print(monthStr)
+    print(len(dayInfos))
 
     for dayIndex in range(len(dayInfos)):
         dayStr = to_str(getDayStrFromDayInfo(dayInfos[dayIndex]))
